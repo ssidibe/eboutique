@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/eboutique_test}
+  jpa:
+    hibernate:
+      ddl-auto: none
+ml:
+  caisff:
+    eboutique:
+      allowedIps: ${EBOUTIQUE_ALLOWED_IPs:127.0.0.1,0:0:0:0:0:0:0:1}
+      cors:
+        allowedAdresse: localhost:4200,127.0.0.1:4200

@@ -1,0 +1,14 @@
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    certificate: file:/usr/local/eboutique/keys/fullchain.pem
+    certificate-private-key: file:/usr/local/eboutique/keys/fullchain.pem
+    protocol: TLS
+    enabled-protocols: TLSv1.2,TLSv1.3
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+

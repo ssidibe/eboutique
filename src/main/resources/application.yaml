@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: eboutique
+  datasource:
+    url: jdbc:mysql://localhost:3306/${EB_DB_NAME:eboutique}
+    username: root
+    password: ${EB_DB_PWD}
+  jpa:
+    hibernate:
+    show-sql: true
+  profiles:
+    active: ${COMPUTER_TYPE:dev}
+ml:
+  caisff:
+    eboutique:
+      allowedIps: ${EBOUTIQUE_ALLOWED_IPs:127.0.0.1,0:0:0:0:0:0:0:1,120.10.19.34}
+      cors:
+        allowedAdresse: eboutique.caisff.ml
+
