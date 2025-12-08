@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <!-- Récupération des valeurs Spring -->
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+    <springProperty scope="context" name="env" source="spring.profiles.active"/>
+    <springProperty scope="context" name="instance" source="eureka.instance.instance-id"/>
+
+    <!-- Encoder JSON -->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>54.159.64.219:5000</destination> <!-- TON LOGSTASH -->
+
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+
+                <!-- Horodatage -->
+                <timestamp/>
+
+                <!-- Niveau du log -->
+                <logLevel/>
+
+                <!-- Message -->
+                <message/>
+
+                <!-- MDC si présent -->
+                <mdc/>
+
+                <!-- Contexte applicatif -->
+                <arguments/>
+
+                <!-- Ajout des champs custom -->
+                <provider class="net.logstash.logback.composite.GlobalCustomFieldsJsonProvider">
+                    <customFields>
+                        {
+                        "appName": "${appName}",
+                        "environment": "${env}",
+                        "instanceId": "${instance}"
+                        }
+                    </customFields>
+                </provider>
+
+            </providers>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="LOGSTASH"/>
+    </root>
+
+</configuration>
+<!--
+        <dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>7.4</version>
+        </dependency>
+
+-->
