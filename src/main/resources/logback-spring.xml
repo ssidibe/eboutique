@@ -8,7 +8,7 @@
 
     <!-- Encoder JSON -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>54.159.64.219:5000</destination> <!-- TON LOGSTASH -->
+        <destination>52.91.56.208:5000</destination> <!-- TON LOGSTASH -->
 
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>

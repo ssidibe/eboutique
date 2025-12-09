@@ -10,8 +10,8 @@ KIBANA_DOMAIN="kibana.e-jago.com"
 ES_DOMAIN="es.e-jago.com"
 
 echo "=== Mise à jour du système ==="
-apt update
-apt upgrade
+sudo apt update
+sudo apt upgrade
 
 
 echo "=== Installation dépendances ==="
@@ -33,18 +33,19 @@ echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://arti
 echo "=== Installation Elasticsearch 9 ==="
 sudo apt-get update && sudo apt-get install elasticsearch
 
-cat <<EOF > /etc/elasticsearch/elasticsearch.yml
+sudo nano /etc/elasticsearch/elasticsearch.yml
 
-node.name: node-1
-http.port: 9200
-network.host: 0.0.0.0
-discovery.seed_hosts: ["127.0.0.1"]
-cluster.initial_master_nodes: ["node-1"]
-EOF
+#node.name: node-1
+#http.port: 9200
+#network.host: 0.0.0.0
+#discovery.seed_hosts: ["127.0.0.1"]
+#cluster.initial_master_nodes: ["node-1"]
+#xpack.security.enrollment.enabled: false
+#EOF
 
-systemctl daemon-reload
-systemctl enable elasticsearch
-systemctl start elasticsearch
+sudo systemctl daemon-reload
+sudo systemctl enable elasticsearch
+sudo systemctl start elasticsearch
 sleep 10
 curl -k http://localhost:9200
 #bZg*x=q34YFclEtwJOnj
@@ -61,6 +62,7 @@ cat <<EOF > /etc/kibana/kibana.yml
 server.host: "0.0.0.0"
 server.port: 5601
 elasticsearch.hosts: ["http://localhost:9200"]
+server.ssl.enabled: false
 EOF
 
 #sudo /usr/share/elasticsearch/bin/elasticsearch-service-tokens create elastic/kibana kibana-token
@@ -102,6 +104,8 @@ EOF
 
 systemctl enable logstash
 systemctl start logstash
+sudo ss -tulnp | grep logstash
+
 
 ### ------------------------------------------------------------
 ### 5. Apache2 + Reverse Proxy
